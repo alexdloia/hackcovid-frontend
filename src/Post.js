@@ -7,7 +7,7 @@ function TextInput(props) {
     <label>
       {props.label}
       <br />
-      <input type="text" name={props.name} placeholder={props.placeholder} />
+      <input required type="text" name={props.name} placeholder={props.placeholder} />
     </label>
   );
 }
@@ -29,13 +29,13 @@ function Form(props) {
       <label>
         Contact Email
         <br />
-        <input type="email" name="email" placeholder="contact email" />
+        <input type="email" name="email" placeholder="contact email" required />
       </label>
       <TextInput label="Project Title" name="title" placeholder="project title" />
       <label>
         Project Type
         <br />
-        <select name="type">
+        <select name="type" required>
           <optgroup label="Project Type">
             <option value="research">Research</option>
             <option value="app">App/Website</option>
@@ -45,11 +45,11 @@ function Form(props) {
           </optgroup>
         </select>
       </label>
-      <TextInput label="What You're Looking For" name="looking" placeholder="qualifications" />
+      <TextInput label="What You're Looking For" name="looking" placeholder="qualifications" required />
       <label>
         Requested Materials
         <br />
-        <textarea name="materials" placeholder="Note: separate entries with commas Ex: Resume, Certifications, Portfolio" />
+        <textarea name="materials" placeholder="Note: separate entries with commas Ex: Resume, Certifications, Portfolio" required />
       </label>
       <TextInput label="Location" name="location" placeholder="city and country" />
       <label>
@@ -59,12 +59,13 @@ function Form(props) {
           name="preview"
           placeholder="20 word project summary"
           onChange={limitWords(20)}
+          required
         />
       </label>
       <label>
         Project/Team Description
         <br />
-        <textarea name="team_description" placeholder="Describe your team and the project you’re working on" />
+        <textarea required name="team_description" placeholder="Describe your team and the project you’re working on" />
       </label>
       <label>
         Position Description
@@ -73,6 +74,7 @@ function Form(props) {
           name="position_description"
           placeholder="Describe what the position involves (300 words max)"
           onChange={limitWords(300)}
+          required
         />
       </label>
       <label>
