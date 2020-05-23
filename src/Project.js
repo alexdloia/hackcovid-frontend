@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, limitWords} from './form.js';
-import {Header} from './header.js';
+import Header from './header.js';
 import {Link} from 'react-router-dom';
 import './Project.css';
 

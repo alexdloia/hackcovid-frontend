@@ -1,12 +1,12 @@
 import React from 'react';
-import {HomeHeader} from './header.js';
+import Header from './header.js';
 import './Home.css';
 
 export default function Home(props) {
   return (
     <div className="Home">
       <div className="home-part1">
-        <HomeHeader />
+        <Header selected="Home" />
         <div className="content">
           <div className="headline">
             <h4>What we do?</h4>
