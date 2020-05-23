@@ -3,13 +3,23 @@ import {Header} from './header.js';
 import './Post.css';
 
 function TextInput(props) {
-  return (
-    <label>
-      {props.label}
-      <br />
-      <input required type="text" name={props.name} placeholder={props.placeholder} />
-    </label>
-  );
+  if (props.optional) {
+    return (
+      <label>
+        {props.label}
+        <br />
+        <input type="text" name={props.name} placeholder={props.placeholder} />
+      </label>
+    );
+  } else {
+    return (
+      <label>
+        {props.label}
+        <br />
+        <input required type="text" name={props.name} placeholder={props.placeholder} />
+      </label>
+    );
+  }
 }
 
 function limitWords(to) {
@@ -45,6 +55,7 @@ function Form(props) {
           </optgroup>
         </select>
       </label>
+      <TextInput optional={true} label="Project Type" name="type_details" placeholder="if other" required />
       <TextInput label="What You're Looking For" name="looking" placeholder="qualifications" required />
       <label>
         Requested Materials
