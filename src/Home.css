@@ -61,3 +61,21 @@
 .home-part2 .content p {
   color: var(--default-inactive);
 }
+
+@media (max-width: 1000px) {
+  .project-right {
+    width: 40%;
+  }
+}
+
+@media (max-width: 750px) {
+  .Home .content {
+    padding-left: 0;
+  }
+  .Home .home-part2 .content {
+    padding-right: 0;
+  }
+  .headline h1 {
+    font-size: 3em;
+  }
+}
