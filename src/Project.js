@@ -4,17 +4,23 @@ import Header from './header.js';
 import {Link} from 'react-router-dom';
 import './Project.css';
 
+function Requested(props) {
+  return (
+    <ul>
+      {props.requested.map((material, i) => (
+        <li key={i}>{material}</li>
+      ))}
+    </ul>
+  );
+}
+
 function SidePanel(props) {
   return (
     <div className="project-right">
       <strong>Looking For</strong>
       <p>{props.looking}</p>
       <strong>Requested Materials</strong>
-      <ul>
-        {props.requested.map((material, i) => (
-          <li key={i}>{material}</li>
-        ))}
-      </ul>
+      <Requested requested={props.requested} />
       <p className="project-contact">
         <button className="project-contact" onClick={() => props.contact()} >
           Contact Team
@@ -70,6 +76,11 @@ class Modal extends React.Component {
                 required
               />
             </label>
+            <label>
+              Upload Files
+              <Requested requested={this.props.requested} />
+              <input type="file" multiple />
+            </label>
             <div className="submit">
               <input
                 type="submit"
@@ -110,6 +121,7 @@ class Project extends React.Component {
       return <Modal
         team={this.state.name}
         exit={() => this.setModal(false)}
+        requested={this.state.requested}
       />
     }
   }
