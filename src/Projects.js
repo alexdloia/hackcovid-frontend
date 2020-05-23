@@ -27,52 +27,111 @@ function Project(props) {
 class Row extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {key: props.search_key, loaded: false, data: []};
+    this.state = {key: props.search_key, loaded: false, ok: true, data: []};
   }
 
   get_content() {
     if (this.state.loaded) {
       return this.state.data.map(proj => (
-        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} id={proj.id} />
+        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} id={proj.id} key={proj.id} />
       ));
     }
   }
 
   render() {
+    if (this.state.loaded) {
+      return (
+        <div className="project-row-container">
+          <p className="project-row-title">{this.props.friendly}</p>
+          <div className="project-row">
+            {this.get_content()}
+          </div>
+        </div>
+      );
+    }
+    if (this.state.ok) {
+      return (
+        <div className="project-row-container">
+          <p className="project-row-title">{this.props.friendly}</p>
+          <div className="project-row">
+            <h1>Loading...</h1>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="project-row-container">
         <p className="project-row-title">{this.props.friendly}</p>
         <div className="project-row">
-          {this.get_content()}
+          <h1>Something went wrong, try again.</h1>
         </div>
       </div>
     );
   }
 
   componentDidMount() {
-    /* TODO: fetch */
-    this.setState(Object.assign({}, this.state, {
-      data: [
-        {name: "Johns Hopkins World Map", background: "jhopkins.png", description: "We are working on a comprehensive world map detailing global coronavirus cases by country.", tags: ["graphic designer"], id: "jhopkins"},
-        {name: "Stanford COVID-Data", background: "stanford.png", description: "Stanford", tags: [], id: "stanford"},
-        {name: "The Contact Tracing Team", background: "contact.png", description: "Contact", tags: [], id: "contact"},
-        {name: "Stanford COVID-Teams", tags: [], background: "stanford.png", description: "Stanford", id: "stanford_teams"},
-        {name: "Overflow", tags: [], background: "stanford.png", description: "Overflow", id: "overflow"},
-        {name: "Overflow2", tags: [], background: "stanford.png", description: "Overflow2", id: "overflow2"},
-      ],
-      loaded: true
-    }));
+    fetch(`${process.env.REACT_APP_API_SERVER}/get_category?id=${this.props.search_key}`).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      }
+    }).then(json => {
+      this.setState(Object.assign({}, this.state, {loaded: true}, {data: json}));
+    });
   }
 }
 
-export default function Projects(props) {
-  return (
-    <div className="Projects">
-      <Header selected="Projects"/>
-      <div className="content">
-        <Row search_key="data-science" friendly="Data Science" />
-        <Row search_key="ventilators" friendly="Ventilators" />
-      </div>
-    </div>
-  )
+export default class Projects extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false, ok: true};
+  }
+
+  componentDidMount() {
+    fetch(`${process.env.REACT_APP_API_SERVER}/get_categories`).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      }
+    }).then(json => {
+      this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
+    });
+  }
+
+  render() {
+    if (this.state.loaded) {
+      return (
+        <div className="Projects">
+          <Header selected="Projects"/>
+          <div className="content">
+            {this.state.categories.map(category => (
+              <Row key={category.key} search_key={category.key} friendly={category.friendly} />
+            ))}
+          </div>
+        </div>
+      )
+    } else {
+      if (this.state.ok) {
+        return (
+          <div className="Projects">
+            <Header selected="Projects"/>
+            <div className="content">
+              <h1>Loading...</h1>
+            </div>
+          </div>
+        )
+      } else {
+        return (
+          <div className="Projects">
+            <Header selected="Projects"/>
+            <div className="content">
+              <h1>Something went wrong, try again</h1>
+            </div>
+          </div>
+        )
+      }
+    }
+  }
 }

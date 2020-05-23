@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, limitWords} from './form.js';
 import Header from './header.js';
-import {Link} from 'react-router-dom';
+import {Link, useParams, withRouter} from 'react-router-dom';
 import './Project.css';
 
 function Requested(props) {
@@ -109,7 +109,7 @@ class Modal extends React.Component {
 class Project extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loaded: false, in_modal: false};
+    this.state = {loaded: false, in_modal: false, ok: true};
   }
 
   setModal(to) {
@@ -128,12 +128,21 @@ class Project extends React.Component {
 
   render() {
     if (!this.state.loaded) {
-      return (
-        <div className="Project">
-          <Header />
-          <h1>Loading</h1>
-        </div>
-      );
+      if (this.state.ok) {
+        return (
+          <div className="Project">
+            <Header />
+            <h1>Loading</h1>
+          </div>
+        );
+      } else {
+        return (
+          <div className="Project">
+            <Header />
+            <h1>Something went wrong, try again</h1>
+          </div>
+        );
+      }
     } else {
       return (
         <div className="Project">
@@ -158,20 +167,17 @@ class Project extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: fetch
-    this.setState(Object.assign({}, this.state, {
-      name: "Johns Hopkins World Map",
-      position: "Data Aggregation Specialist",
-      location: "Baltimore, Maryland",
-      position_desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
-      project_desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
-      looking: "We’re looking for front end developers experienced with React.",
-      remote: true,
-      requested: ["Resume/CV", "Portfolio (optional)"],
-      contact: "https://example.com",
-      loaded: true
-    }));
+    const id = this.props.match.params.id;
+    fetch(`${process.env.REACT_APP_API_SERVER}/get_project?id=${id}`).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      }
+    }).then(json => {
+      this.setState(Object.assign({}, this.state, {loaded: true}, json));
+    });
   }
 }
 
-export default Project;
+export default withRouter(Project);

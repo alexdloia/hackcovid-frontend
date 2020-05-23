@@ -1,0 +1,8 @@
+[
+  {"name": "Data Johns Hopkins World Map", "background": "jhopkins.png", "description": "We are working on a comprehensive world map detailing global coronavirus cases by country.", "tags": ["graphic designer"], "id": "jhopkins"},
+  {"name": "Data Stanford COVID-Data", "background": "stanford.png", "description": "Stanford", "tags": [], "id": "stanford"},
+  {"name": "Data The Contact Tracing Team", "background": "contact.png", "description": "Contact", "tags": [], "id": "contact"},
+  {"name": "Data Stanford COVID-Teams", "tags": [], "background": "stanford.png", "description": "Stanford", "id": "stanford_teams"},
+  {"name": "Data Overflow", "tags": [], "background": "stanford.png", "description": "Overflow", "id": "overflow"},
+  {"name": "Data Overflow2", "tags": [], "background": "stanford.png", "description": "Overflow2", "id": "overflow2"}
+]

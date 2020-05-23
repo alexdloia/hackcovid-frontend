@@ -1,0 +1,10 @@
+{
+  "name": "Contact",
+  "position": "Contact Position",
+  "location": "Somewhere, USA",
+  "position_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
+  "project_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
+  "looking": "We’re looking for something.",
+  "remote": false,
+  "requested": ["Resume/CV", "Portfolio (optional)"]
+}
