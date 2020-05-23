@@ -2,6 +2,9 @@ import React from 'react';
 import Header from './header.js';
 import {Link} from 'react-router-dom';
 import './Projects.css';
+import firebase from './firebase.js';
+
+var db = firebase.firestore();
 
 function Project(props) {
   return (
@@ -70,21 +73,22 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
-	let approved_matched_projects = db.collections("projects")
+	let approved_matched_projects = db.collection("projects")
 		.where("category", "==", this.props.search_key)
 		.where("approved", "==", true);
 
 	approved_matched_projects.get()
 		.then( (querySnapshot) => {	
-			let data = []
-			querySnapshot.foreach( (doc) => {
+			let data = [];
+			querySnapshot.forEach( (doc) => {
 				data.push(doc.data());
-			}	
+			});	
 
 			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: data}));
 		})
 		.catch( (error) => {
-
+			console.log(error);
+			this.setState(Object.assign({}, this.state, {ok: false}));
 		});
   }
 }
@@ -100,13 +104,14 @@ export default class Projects extends React.Component {
 	categories.get()
 		.then( (querySnapshot) => {
 			let json = []
-			querySnapshot.foreach( (doc) => {
+			querySnapshot.forEach( (doc) => {
 				json.push({ key: doc.id, friendly: doc.data().friendly });
-			}
+			});
 
 			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
-		}
+		})
 		.catch( (error) => {
+			console.log(error);
 			this.setState(Object.assign({}, this.state, {ok: false}));
 		});
   }
