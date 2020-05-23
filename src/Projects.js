@@ -70,15 +70,22 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_SERVER}/get_category?id=${this.props.search_key}`).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        this.setState(Object.assign({}, this.state, {ok: false}));
-      }
-    }).then(json => {
-      this.setState(Object.assign({}, this.state, {loaded: true}, {data: json}));
-    });
+	let approved_matched_projects = db.collections("projects")
+		.where("category", "==", this.props.search_key)
+		.where("approved", "==", true);
+
+	approved_matched_projects.get()
+		.then( (querySnapshot) => {	
+			let data = []
+			querySnapshot.foreach( (doc) => {
+				data.push(doc.data());
+			}	
+
+			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: data}));
+		})
+		.catch( (error) => {
+
+		});
   }
 }
 
@@ -89,15 +96,19 @@ export default class Projects extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_SERVER}/get_categories`).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        this.setState(Object.assign({}, this.state, {ok: false}));
-      }
-    }).then(json => {
-      this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
-    });
+	let categories = db.collection("categories");
+	categories.get()
+		.then( (querySnapshot) => {
+			let json = []
+			querySnapshot.foreach( (doc) => {
+				json.push({ key: doc.id, friendly: doc.data().friendly });
+			}
+
+			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
+		}
+		.catch( (error) => {
+			this.setState(Object.assign({}, this.state, {ok: false}));
+		});
   }
 
   render() {
