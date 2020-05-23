@@ -1,0 +1,7 @@
+.Project {
+  color: var(--black);
+}
+
+.Project h1, .project-loc {
+  text-align: center;
+}

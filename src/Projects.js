@@ -1,5 +1,6 @@
 import React from 'react';
 import {Header} from './header.js';
+import {Link} from 'react-router-dom';
 import './Projects.css';
 
 function Project(props) {
@@ -12,6 +13,9 @@ function Project(props) {
           <br />
           <br />
           Tags: {props.tags.join(", ")}
+          <br />
+          <br />
+          <Link to={`/project/${props.id}`}>More Info</Link>
         </p>
         <img src={`/projects/${props.background}`} />
       </div>
@@ -29,7 +33,7 @@ class Row extends React.Component {
   get_content() {
     if (this.state.loaded) {
       return this.state.data.map(proj => (
-        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} key={proj.key} />
+        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} id={proj.id} />
       ));
     }
   }
@@ -49,12 +53,12 @@ class Row extends React.Component {
     /* TODO: fetch */
     this.setState(Object.assign({}, this.state, {
       data: [
-        {name: "Johns Hopkins World Map", background: "jhopkins.png", description: "We are working on a comprehensive world map detailing global coronavirus cases by country.", tags: ["graphic designer"], key: "jhopkins"},
-        {name: "Stanford COVID-Data", background: "stanford.png", description: "Stanford", tags: [], key: "stanford"},
-        {name: "The Contact Tracing Team", background: "contact.png", description: "Contact", tags: [], key: "contact"},
-        {name: "Stanford COVID-Teams", tags: [], background: "stanford.png", description: "Stanford", key: "stanford_teams"},
-        {name: "Overflow", tags: [], background: "stanford.png", description: "Overflow", key: "overflow"},
-        {name: "Overflow2", tags: [], background: "stanford.png", description: "Overflow2", key: "overflow2"},
+        {name: "Johns Hopkins World Map", background: "jhopkins.png", description: "We are working on a comprehensive world map detailing global coronavirus cases by country.", tags: ["graphic designer"], id: "jhopkins"},
+        {name: "Stanford COVID-Data", background: "stanford.png", description: "Stanford", tags: [], id: "stanford"},
+        {name: "The Contact Tracing Team", background: "contact.png", description: "Contact", tags: [], id: "contact"},
+        {name: "Stanford COVID-Teams", tags: [], background: "stanford.png", description: "Stanford", id: "stanford_teams"},
+        {name: "Overflow", tags: [], background: "stanford.png", description: "Overflow", id: "overflow"},
+        {name: "Overflow2", tags: [], background: "stanford.png", description: "Overflow2", id: "overflow2"},
       ],
       loaded: true
     }));

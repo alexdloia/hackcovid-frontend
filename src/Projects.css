@@ -10,6 +10,14 @@
   margin-left: 3vw;
 }
 
+.project-desc a {
+  color: var(--default-emphasis);
+}
+
+.project-desc a:hover {
+  color: var(--default-active);
+}
+
 .project-name {
   grid-row: 2;
 }

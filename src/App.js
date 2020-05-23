@@ -4,6 +4,7 @@ import './App.css';
 import './Color.css';
 import Home from './Home.js';
 import Projects from './Projects.js';
+import Project from './Project.js';
 
 import {
   BrowserRouter as Router,
@@ -24,6 +25,9 @@ class App extends React.Component {
         <Switch>
           <Route path="/projects">
             <Projects />
+          </Route>
+          <Route path="/project/:id">
+            <Project />
           </Route>
           <Route path="/">
             <Home />
