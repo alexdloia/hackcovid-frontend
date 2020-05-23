@@ -8,7 +8,10 @@ function Project(props) {
       <div className="project-img">
         <p className="project-desc">
           <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis.
+          {props.description}
+          <br />
+          <br />
+          Tags: {props.tags}
         </p>
         <img src={`/projects/${props.background}`} />
       </div>
