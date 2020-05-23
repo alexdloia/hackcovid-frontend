@@ -5,3 +5,43 @@
 .Project h1, .project-loc {
   text-align: center;
 }
+
+.project-right {
+  background-color: var(--project-side-bg);
+  list-style-type: "-";
+  float: right;
+  width: 20%;
+}
+
+.project-contact {
+  text-align: center;
+}
+
+.project-contact button {
+  background-color: var(--default-emphasis);
+  color: var(--contact-red);
+  border: none;
+  border-radius: .3em;
+  font-size: 1.5em;
+}
+
+.project-contact button a {
+  text-decoration: none;
+  color: var(--default-active);
+}
+
+.project-contact button:hover {
+  background-color: var(--contact-red-hover);
+}
+
+@media (max-width: 1000px) {
+  .project-right {
+    width: 40%;
+  }
+}
+
+@media (max-width: 500px) {
+  .project-right {
+    width: 100%;
+  }
+}

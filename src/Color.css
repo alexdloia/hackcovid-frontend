@@ -3,5 +3,8 @@
   --default-active: #FCFCFC;
   --default-inactive: #AFAFAF;
   --default-emphasis: #FF0800;
+  --project-side-bg: #D3D3D3;
+  --contact-red: #FF0800;
+  --contact-red-hover: #EE0800;
   --black: #333333;
 }
