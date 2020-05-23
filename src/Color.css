@@ -1,7 +1,7 @@
 :root {
-  --default-bg: #003367;
+  --default-bg: #002953;
   --default-active: #FCFCFC;
   --default-inactive: #AFAFAF;
-  --default-emphasis: red;
+  --default-emphasis: #FF0800;
   --black: #333333;
 }
