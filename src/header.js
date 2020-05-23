@@ -42,8 +42,8 @@ export default class Header extends React.Component {
         <div className={this.state.fixed ? "header fixed" : home ? "home-header" : "header"} id="header">
           <span className="header-logo"><span>hack</span><span>COVID</span></span>
           <nav className="header-links">
-            <Link to="/" className={home ? "selected" : ""} >Home</Link>
-            <Link to="/projects" className={this.props.selected === "Projects" ? "selected" : ""} >Projects</Link>
+            <Link to="/" className={home ? "selected" : ""}>Home</Link>
+            <Link to="/projects" className={this.props.selected === "Projects" ? "selected" : ""}>Projects</Link>
             <Link to="/post" className={this.props.selected === "Post" ? "selected" : ""}>Post a Role</Link>
           </nav>
         </div>
