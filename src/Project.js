@@ -28,6 +28,9 @@ class Modal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {listener: this.keyDown.bind(this)};
+  }
+
+  componentDidMount() {
     document.body.addEventListener("keydown", this.state.listener);
   }
 
