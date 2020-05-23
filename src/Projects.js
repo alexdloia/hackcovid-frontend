@@ -73,6 +73,7 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
+	console.log(this.props.search_key);
 	let approved_matched_projects = db.collection("projects")
 		.where("category", "==", this.props.search_key)
 		.where("approved", "==", true);
@@ -81,10 +82,11 @@ class Row extends React.Component {
 		.then( (querySnapshot) => {	
 			let data = [];
 			querySnapshot.forEach( (doc) => {
+				console.log(doc.data());
 				data.push(doc.data());
 			});	
 
-			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: data}));
+			this.setState(Object.assign({}, this.state, {loaded: true}, {data: data}));
 		})
 		.catch( (error) => {
 			console.log(error);
