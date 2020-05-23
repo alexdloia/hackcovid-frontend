@@ -3,6 +3,28 @@ import {Header} from './header.js';
 import {Link} from 'react-router-dom';
 import './Project.css';
 
+function SidePanel(props) {
+  return (
+    <div className="project-right">
+      <strong>Looking For</strong>
+      {props.looking.map((title, i) => (
+        <p key={i}>{title}</p>
+      ))}
+      <strong>Requested Materials</strong>
+      <ul>
+        {props.requested.map((material, i) => (
+          <li key={i}>{material}</li>
+        ))}
+      </ul>
+      <p className="project-contact">
+        <button className="project-contact">
+          <a href={props.contact}>Contact Team</a>
+        </button>
+      </p>
+    </div>
+  );
+}
+
 class Project extends React.Component {
   constructor(props) {
     super(props);
@@ -23,12 +45,15 @@ class Project extends React.Component {
           <Header />
           <h1>{this.state.name}</h1>
           <p className="project-loc">{this.state.location}</p>
-          <strong>About the team</strong>
-          <p>{this.state.about}</p>
-          <strong>Project</strong>
-          <p>{this.state.project}</p>
-          <strong>Timeline</strong>
-          <p>{this.state.timeline}</p>
+          <div className="project-left">
+            <SidePanel looking={this.state.looking} requested={this.state.requested} contact={this.state.contact} />
+            <strong>About the team</strong>
+            <p>{this.state.about}</p>
+            <strong>Project</strong>
+            <p>{this.state.project}</p>
+            <strong>Timeline</strong>
+            <p>{this.state.timeline}</p>
+          </div>
         </div>
       )
     }
