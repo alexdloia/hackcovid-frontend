@@ -7,9 +7,7 @@ function SidePanel(props) {
   return (
     <div className="project-right">
       <strong>Looking For</strong>
-      {props.looking.map((title, i) => (
-        <p key={i}>{title}</p>
-      ))}
+      <p>{props.looking}</p>
       <strong>Requested Materials</strong>
       <ul>
         {props.requested.map((material, i) => (
@@ -43,17 +41,17 @@ class Project extends React.Component {
       return (
         <div className="Project">
           <Header />
-          <h1>{this.state.name}</h1>
+          <h1>{this.state.position}</h1>
           <p className="project-loc">{this.state.location}</p>
           <div className="project-left">
             <SidePanel looking={this.state.looking} requested={this.state.requested} contact={this.state.contact} />
-            <strong>About the team</strong>
-            <p>{this.state.about}</p>
-            <strong>Project</strong>
-            <p>{this.state.project}</p>
-            <strong>Timeline</strong>
-            <p>{this.state.timeline}</p>
           </div>
+          <p><strong>Location:</strong> {this.state.location}</p>
+          <p><strong>Remote:</strong> {this.state.remote ? "yes" : "no"}</p>
+          <strong>Team/Project Description</strong>
+          <p>{this.state.project_desc}</p>
+          <strong>Position Description</strong>
+          <p>{this.state.position_desc}</p>
         </div>
       )
     }
@@ -63,11 +61,12 @@ class Project extends React.Component {
     // TODO: fetch
     this.setState(Object.assign({}, this.state, {
       name: "Johns Hopkins World Map",
+      position: "Data Aggregation Specialist",
       location: "Baltimore, Maryland",
-      about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
-      project: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
-      timeline: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
-      looking: ["Front End Developer (React)", "Data Scientist", "Graphic Designer"],
+      position_desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
+      project_desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur arcu non leo scelerisque commodo. Praesent elementum tellus ipsum, in feugiat turpis condimentum vitae. Proin a nisl non mi aliquam vulputate vel nec felis. Nulla ex diam, molestie a tortor vehicula, pellentesque consequat elit. Morbi ut sapien nec elit facilisis vulputate ac sed ante. Nulla elementum, nibh sed gravida faucibus, mi tortor iaculis risus, non pellentesque tortor metus sed ligula. Aliquam pharetra ornare hendrerit. In at purus metus. Suspendisse malesuada nulla et nibh molestie, vel hendrerit dui convallis.",
+      looking: "We’re looking for front end developers experienced with React.",
+      remote: true,
       requested: ["Resume/CV", "Portfolio (optional)"],
       contact: "https://example.com",
       loaded: true
