@@ -5,6 +5,7 @@ import './Color.css';
 import Home from './Home.js';
 import Projects from './Projects.js';
 import Project from './Project.js';
+import Post from './Post.js';
 
 import {
   BrowserRouter as Router,
@@ -23,6 +24,9 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
+          <Route path="/post">
+            <Post />
+          </Route>
           <Route path="/projects">
             <Projects />
           </Route>

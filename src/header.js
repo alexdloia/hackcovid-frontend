@@ -9,7 +9,7 @@ export function HomeHeader(props) {
       <nav className="header-links">
         <Link to="/" className="selected">Home</Link>
         <Link to="/projects">Projects</Link>
-        <Link to="/join">Join as a Team</Link>
+        <Link to="/post">Post a Job</Link>
       </nav>
     </div>
   );
@@ -22,7 +22,7 @@ export function Header(props) {
       <nav className="header-links">
         <a href="/" className={props.selected === "Home" ? "selected" : ""} >Home</a>
         <a href="/projects" className={props.selected === "Projects" ? "selected" : ""} >Projects</a>
-        <a href="/join" className={props.selected === "Join" ? "selected" : ""}>Join as a Team</a>
+        <a href="/post" className={props.selected === "Post" ? "selected" : ""}>Post a Job</a>
       </nav>
     </div>
   );

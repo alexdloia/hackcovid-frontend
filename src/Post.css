@@ -1,0 +1,57 @@
+.Post {
+  color: var(--black);
+}
+
+.Post h1 {
+  color: var(--form-blue);
+}
+
+.Post .content {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.Post label {
+  display: block;
+  color: var(--form-blue);
+  font-weight: 800;
+  letter-spacing: .1em;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+}
+
+.Post input, .Post select, .Post textarea {
+  font-size: 1.2em;
+  padding: .2em;
+}
+
+.Post .invalid, .Post input:invalid {
+  background-color: var(--form-invalid);
+}
+
+.Post textarea {
+  width: 100%;
+}
+
+.Post input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+}
+
+.Post .submit {
+  display: flex;
+  justify-content: center;
+}
+
+.Post input[type=submit] {
+  border: none;
+  border-radius: 1em;
+  font-size: 2em;
+  background-color: var(--contact-red);
+  padding: .5em 1em .5em 1em;
+  color: var(--default-active);
+}
+
+.Post input[type=submit]:active {
+  background-color: var(--contact-red-hover);
+}
