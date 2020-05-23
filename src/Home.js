@@ -26,7 +26,7 @@ export default function Home(props) {
           <p>Ultimately, we hope to live in a world where this site is no longer needed, thanks to incredible people like yourselves who have dedicated time and effort to a cause greater than any one of us… a COVID-free future.</p>
           <h2>Who we are</h2>
           <p>We are a group of students from Stanford University who want to help in the fight against COVID-19. We’ve experienced firsthand the difficulty of bringing together a team of talented individuals to bring our ideas to fruition. As students ourselves, we’ve also seen internships, jobs, and research positions cancelled, leaving plenty of talented people without opportunities to do something they’re passionate about.</p>
-          <p>That’s why we started hackCOVID, where we hope we can bridge the gap between great ideas and even greater people.</p>
+          <p>That’s why we started <span className="logo"><span>hack</span><span>COVID</span></span>, where we hope we can bridge the gap between great ideas and even greater people.</p>
         </div>
       </div>
     </div>
