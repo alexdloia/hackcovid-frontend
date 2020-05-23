@@ -11,7 +11,7 @@ function Project(props) {
           {props.description}
           <br />
           <br />
-          Tags: {props.tags}
+          Tags: {props.tags.join(", ")}
         </p>
         <img src={`/projects/${props.background}`} />
       </div>
@@ -29,7 +29,7 @@ class Row extends React.Component {
   get_content() {
     if (this.state.loaded) {
       return this.state.data.map(proj => (
-        <Project name={proj.name} background={proj.background} description={proj.description} key={proj.key} />
+        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} key={proj.key} />
       ));
     }
   }
