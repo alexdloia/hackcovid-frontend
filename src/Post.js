@@ -1,37 +1,7 @@
 import React from 'react';
 import {Header} from './header.js';
+import {TextInput, limitWords} from './form.js';
 import './Post.css';
-
-function TextInput(props) {
-  if (props.optional) {
-    return (
-      <label>
-        {props.label}
-        <br />
-        <input type="text" name={props.name} placeholder={props.placeholder} />
-      </label>
-    );
-  } else {
-    return (
-      <label>
-        {props.label}
-        <br />
-        <input required type="text" name={props.name} placeholder={props.placeholder} />
-      </label>
-    );
-  }
-}
-
-function limitWords(to) {
-  return (event) => {
-    if (event.target.value.split(/\s/).length > 20) {
-      event.target.classList.add("invalid");
-    } else {
-      event.target.classList.remove("invalid");
-    }
-  };
-
-}
 
 function Form(props) {
   return (
