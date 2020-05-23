@@ -44,7 +44,7 @@ export default class Header extends React.Component {
           <nav className="header-links">
             <Link to="/" className={home ? "selected" : ""} >Home</Link>
             <Link to="/projects" className={this.props.selected === "Projects" ? "selected" : ""} >Projects</Link>
-            <Link to="/post" className={this.props.selected === "Post" ? "selected" : ""}>Post a Job</Link>
+            <Link to="/post" className={this.props.selected === "Post" ? "selected" : ""}>Post a Position</Link>
           </nav>
         </div>
       </div>
