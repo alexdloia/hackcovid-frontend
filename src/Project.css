@@ -21,7 +21,8 @@
   background-color: var(--default-emphasis);
   color: var(--default-active);
   border: none;
-  border-radius: .3em;
+  padding: .5em;
+  border-radius: .5em;
   font-size: 1.5em;
 }
 
