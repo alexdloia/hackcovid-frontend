@@ -31,11 +31,11 @@ class Modal extends React.Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("keydown", this.state.listener);
+    window.addEventListener("keydown", this.state.listener);
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener("keydown", this.state.listener);
+    window.removeEventListener("keydown", this.state.listener);
   }
 
   keyDown(event) {
