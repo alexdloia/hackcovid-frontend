@@ -9,11 +9,11 @@
     "rewrites":[
 	{
 	  "source": "/contact",
-	  "function": "handler"
+	  "function": "contactTeamHandler"
 	},
 	{
 	  "source": "/post_position",
-	  "function": "handler"
+	  "function": "processPostHandler"
 	}
     ]
   }

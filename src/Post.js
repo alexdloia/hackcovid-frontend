@@ -5,7 +5,7 @@ import './Post.css';
 
 function Form(props) {
   return (
-    <form method="post" action="/post_position">
+    <form method="post" action="/post_position" encType='multipart/form-data'>
       <label>
         Contact Email
         <br />
@@ -15,7 +15,7 @@ function Form(props) {
       <label>
         Project Type
         <br />
-        <select name="type" required>
+        <select name="category" required>
           <optgroup label="Project Type">
             <option value="research">Research</option>
             <option value="app">App/Website</option>
@@ -30,14 +30,14 @@ function Form(props) {
       <label>
         Requested Materials
         <br />
-        <textarea name="materials" placeholder="Note: separate entries with commas Ex: Resume, Certifications, Portfolio" required />
+        <textarea name="requested" placeholder="Note: separate entries with commas Ex: Resume, Certifications, Portfolio" required />
       </label>
-      <TextInput label="Location" name="location" placeholder="city and country" />
+      <TextInput label="Location" name="location" placeholder="City, State/Province, country" />
       <label>
         Project Preview
         <br />
         <input type="text"
-          name="preview"
+          name="summary"
           placeholder="20 word project summary"
           onChange={limitWords(20)}
           required
@@ -46,13 +46,13 @@ function Form(props) {
       <label>
         Project/Team Description
         <br />
-        <textarea required name="team_description" placeholder="Describe your team and the project you’re working on" />
+        <textarea required name="team_desc" placeholder="Describe your team and the project you’re working on" />
       </label>
       <label>
         Position Description
         <br />
         <textarea
-          name="position_description"
+          name="pos_desc"
           placeholder="Describe what the position involves (300 words max)"
           onChange={limitWords(300)}
           required
@@ -64,7 +64,7 @@ function Form(props) {
       </label>
       <label>
         Upload a Preview Image (optional)
-        <input type="file" accept="image/*" />
+        <input type="file" accept="image/*" name="project_image" />
       </label>
       <div className="submit">
         <input type="submit" value="Submit" />

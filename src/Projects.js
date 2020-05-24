@@ -15,12 +15,9 @@ function Project(props) {
           {props.description}
           <br />
           <br />
-          Tags: {props.tags.join(", ")}
-          <br />
-          <br />
           <Link to={`/project/${props.id}`}>More Info</Link>
         </p>
-        <img src={`/projects/${props.background}`} />
+        <img src={`${props.background}`} />
       </div>
       <p className="project-name">{props.name}</p>
     </div>
@@ -36,7 +33,7 @@ class Row extends React.Component {
   get_content() {
     if (this.state.loaded) {
       return this.state.data.map(proj => (
-        <Project name={proj.name} background={proj.background} description={proj.description} tags={proj.tags} id={proj.id} key={proj.id} />
+        <Project name={proj.title} background={proj.imageUrl} description={proj.summary} id={proj.id} key={proj.id} />
       ));
     }
   }
