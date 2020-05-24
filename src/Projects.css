@@ -30,13 +30,12 @@
 .project-img, .project-img img, .project-img p {
   width: 20vw;
   height: 30vw;
+  border-radius: 2vw;
 }
 
 .project-img p {
   overflow-y: scroll;
-  border-radius: 2vw;
   display: none;
-
   color: var(--default-active);
   background-color: var(--default-bg);
   position: absolute;
@@ -76,9 +75,6 @@
   .project-img, .project-img img, .project-img p {
     width: 30vw;
     height: 45vw;
-  }
-
-  .project-img p {
     border-radius: 3vw;
   }
 }
@@ -88,12 +84,9 @@
     margin-left: 5vw;
   }
 
-  .project-img p {
-    border-radius: 9vw;
-  }
-
   .project-img, .project-img img, .project-img p {
     width: 90vw;
     height: 135vw;
+    border-radius: 9vw;
   }
 }
