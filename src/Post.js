@@ -5,7 +5,7 @@ import './Post.css';
 
 function Form(props) {
   return (
-    <form method="post">
+    <form method="post" action="/post_position">
       <label>
         Contact Email
         <br />
