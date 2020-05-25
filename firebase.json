@@ -1,20 +1,25 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
     ],
-    "rewrites":[
-	{
-	  "source": "/contact",
-	  "function": "contactTeamHandler"
-	},
-	{
-	  "source": "/post_position",
-	  "function": "processPostHandler"
-	}
+    "rewrites": [
+      {
+        "source": "/contact",
+        "function": "contactTeamHandler"
+      },
+      {
+        "source": "/post_position",
+        "function": "processPostHandler"
+      }
+    ]
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
   }
 }

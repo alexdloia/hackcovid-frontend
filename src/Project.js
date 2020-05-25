@@ -67,7 +67,7 @@ class Modal extends React.Component {
             <label>
               Email
               <br />
-              <input type="email" name="email" placeholder="your email" required />
+              <input type="email" name="user_email" placeholder="your email" required />
             </label>
             <label>
               Message To Team
@@ -90,9 +90,14 @@ class Modal extends React.Component {
                 value="Submit"
                 onClick={(event) => {
                   event.preventDefault();
-                  const form_data = new FormData(document.getElementById("modal-form"));
-                  fetch("/apply", {
+                  let form_data = new FormData(document.getElementById("modal-form"));
+                  form_data.append("team_email", this.props.email);
+
+                  fetch("/contact", {
                     method: 'POST',
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
                     body: form_data
                   }).then(response => {
                     if (response.ok) {

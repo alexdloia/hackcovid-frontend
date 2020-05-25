@@ -17,7 +17,7 @@ function Project(props) {
           <br />
           <Link to={`/project/${props.id}`}>More Info</Link>
         </p>
-        <img src={`${props.background}`} />
+        <img src={props.background} />
       </div>
       <p className="project-name">{props.name}</p>
     </div>

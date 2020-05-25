@@ -12,6 +12,7 @@ function Form(props) {
         <input type="email" name="email" placeholder="contact email" required />
       </label>
       <TextInput label="Project Title" name="title" placeholder="project title" />
+      <TextInput label="Position Title" name="pos_title" placeholder="position title" />
       <label>
         Project Type
         <br />
