@@ -2,9 +2,40 @@ import React from 'react';
 import Header from './header.js';
 import {TextInput, limitWords} from './form.js';
 import './Post.css';
+import firebase from './firebase.js';
 
-function Form(props) {
-  return (
+class Form extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { verified: false };
+    }
+
+    componentDidMount() {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('projRecaptchaDiv', {
+            'callback': (token) => {
+                try {
+                    this.setState({verified: true});
+                    document.getElementById("formSubmit").disabled = false;
+                    console.log(token);
+                } catch(err) {
+                    console.log(err);
+                }
+            },
+            'expired_callback': () => { 
+                this.setState({verified: false});
+                document.getElementById("formSubmit").disabled = true;
+            }
+        });
+      
+
+        window.recaptchaVerifier.render().then(function(widgetId) {
+            window.recaptchaWidgetId = widgetId;
+            console.log(widgetId);
+        });
+    }
+
+    render() {
+      return (
     <form method="post" action="/post_position" encType='multipart/form-data'>
       <label>
         Contact Email
@@ -67,11 +98,13 @@ function Form(props) {
         Upload a Preview Image (optional)
         <input type="file" accept="image/*" name="project_image" />
       </label>
+      <div id="projRecaptchaDiv"></div>
       <div className="submit">
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" id="formSubmit" disabled />
       </div>
     </form>
   )
+  }
 }
 
 export default function Post(props) {

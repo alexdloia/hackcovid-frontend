@@ -36,10 +36,26 @@ function SidePanel(props) {
 class Modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {listener: this.keyDown.bind(this)};
+    this.state = {listener: this.keyDown.bind(this), verified: false};
   }
 
   componentDidMount() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaDiv', {
+        'callback': (token) => {
+            try {
+                this.setState({verified: true});
+                console.log(token);
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    });
+  
+
+    window.recaptchaVerifier.render().then(function(widgetId) {
+        window.recaptchaWidgetId = widgetId;
+        console.log(widgetId);
+    });
     window.addEventListener("keydown", this.state.listener);
   }
 
@@ -61,7 +77,7 @@ class Modal extends React.Component {
       >
         <div className="modal-content Post" onClick={event => event.stopPropagation()}>
           <form method="post" id="modal-form">
-            <h1>Get in touch with {this.props.team_name}</h1>
+            <h1>Get in touch with {this.props.title}</h1>
             <p>Please fill out the form below, and this team will be in touch!</p>
             <TextInput name="name" placeholder="your name" label="Your Name" />
             <label>
@@ -84,12 +100,17 @@ class Modal extends React.Component {
               <Requested requested={this.props.requested} />
               <input type="file" multiple />
             </label>
+            <div id="recaptchaDiv" class="g-recaptcha"></div>
             <div className="submit">
               <input
                 type="submit"
                 value="Submit"
                 onClick={(event) => {
                   event.preventDefault();
+                  if (!this.state.verified) {
+                      console.log("not verified");
+                      return;
+                  }
                   let form_data = new FormData(document.getElementById("modal-form"));
                   form_data.append("team_email", this.props.email);
 
@@ -97,7 +118,7 @@ class Modal extends React.Component {
                     method: 'POST',
 					headers: {
 						'Content-Type': 'multipart/form-data'
-					}
+					},
                     body: form_data
                   }).then(response => {
                     if (response.ok) {

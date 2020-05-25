@@ -10,6 +10,7 @@ admin.initializeApp({
 
 let bucket = admin.storage().bucket();
 let db = admin.firestore();
+const defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/hackcovid-project.appspot.com/o/default_hackcovid.jpg?alt=media";
 
 const express = require('express');
 const cors = require('cors');
@@ -66,7 +67,7 @@ const uploadFile = (file) => new Promise((resolve, reject) => {
 		}
   	});
   	blobStream.on('finish', () => {
-    	const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${blob.name}`;
+    	const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${blob.name}?${ file.mimetype.includes("image") ? "?alt=media" : "" }`;
     	resolve(publicUrl);
   	})
   	.on('error', () => {
@@ -147,8 +148,6 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
         if (["localhost", "hackcovid.dev"].includes(req.hostname)) {
             let reqData = req.body;
             let reqFiles = req.files;
-            console.log(reqData);
-            console.log(reqFiles);
             
             console.log("calling mailsender");
                 mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
@@ -203,10 +202,10 @@ processPostApp.post(['/post_position', '/'], filesUpload,
             
             let docId = slugify(reqData.title) + "-" + Date.now().toString();
 
-            if (!req.files) {
-                reqData.imageUrl = "https://firebasestorage.googleapis.com/v0/b/hackcovid-project.appspot.com/o/CoronaVirusVertical.jpg?alt=media&token=49f9b80d-9260-496a-96ea-9366279ee28d";
+            if (!req.files.length) {
+                reqData.imageUrl = defaultImageUrl;
                 db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
-                res.redirect('/projects');
+                res.send('/projects');
                 remindToReviewNewProject(reqData.title);
             } else {
                 let image = req.files[0];
@@ -215,7 +214,7 @@ processPostApp.post(['/post_position', '/'], filesUpload,
                         console.log("upload success");
                         reqData.imageUrl = publicUrl;
                         db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
-                        res.redirect('/projects');
+                        res.send('/projects');
                         remindToReviewNewProject(reqData.title);
                         return true;
                     })
