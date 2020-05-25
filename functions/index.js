@@ -113,7 +113,15 @@ function createTeamContactMessageFromReq(reqData, reqFiles) {
                     <p>Thank you for using HackCOVID!</p>
                     `;
 
+    let attachmentList = (reqFiles ? reqFiles.map( (file) => {
+            return {
+                filename: file.originalname,
+                contentType: file.mimetype,
+                content: file.buffer
+            };
+        }) : []);
 
+    console.log(reqFiles);
     return {
         from: [ {
             name: "HackCOVID Support",
@@ -125,20 +133,15 @@ function createTeamContactMessageFromReq(reqData, reqFiles) {
         to: reqData.team_email,
         subject: `${reqData.name} would like to get in touch - HackCOVID`,
         html: htmlBody,
-        attachments: reqFiles ? reqFiles.map( (file) => {
-            return {
-                filename: file.originalname,
-                contentType: file.mimetype,
-                content: file.buffer
-            };
-        }) : []
+        attachments: attachmentList
     };
 }
 
 contactTeamApp.post(['/contact', '/'], filesUpload, [
-        check('user_email').isEmail().normalizeEmail(),
+        check('user_email').not().isEmpty().isEmail().normalizeEmail(),
+        check('team_email').not().isEmpty().isEmail().normalizeEmail(),
         check('name').not().isEmpty().trim().escape(),
-        check('message').trim().escape()
+        check('message').not().isEmpty().trim().escape()
     ], (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

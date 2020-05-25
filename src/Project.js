@@ -77,7 +77,7 @@ class Modal extends React.Component {
       >
         <div className="modal-content Post" onClick={event => event.stopPropagation()}>
           <form method="post" id="modal-form">
-            <h1>Get in touch with {this.props.title}</h1>
+            <h1>Get in touch with {this.props.team}</h1>
             <p>Please fill out the form below, and this team will be in touch!</p>
             <TextInput name="name" placeholder="your name" label="Your Name" />
             <label>
@@ -98,7 +98,7 @@ class Modal extends React.Component {
             <label>
               Upload Files
               <Requested requested={this.props.requested} />
-              <input type="file" multiple />
+              <input id="requestedFiles" type="file" multiple />
             </label>
             <div id="recaptchaDiv" class="g-recaptcha"></div>
             <div className="submit">
@@ -113,19 +113,22 @@ class Modal extends React.Component {
                   }
                   let form_data = new FormData(document.getElementById("modal-form"));
                   form_data.append("team_email", this.props.email);
+                  Array.from(document.getElementById("requestedFiles").files).forEach( (file, i) => {
+                    console.log(file);
+                    form_data.append("file" + i, file);
+                  });
 
                   fetch("/contact", {
                     method: 'POST',
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					},
                     body: form_data
                   }).then(response => {
+                      console.log(response);
                     if (response.ok) {
                       this.props.exit();
                     }
                   });
-                }}
+                }
+              }
               />
             </div>
           </form>
@@ -148,9 +151,10 @@ class Project extends React.Component {
   renderModal() {
     if (this.state.in_modal) {
       return <Modal
-        team={this.state.name}
+        team={this.state.title}
         exit={() => this.setModal(false)}
         requested={this.state.requested}
+        email={this.state.email}
       />
     }
   }
