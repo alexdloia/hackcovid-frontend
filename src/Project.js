@@ -3,6 +3,9 @@ import {TextInput, limitWords} from './form.js';
 import Header from './header.js';
 import {Link, useParams, withRouter} from 'react-router-dom';
 import './Project.css';
+import firebase from './firebase.js';
+
+var db = firebase.firestore();
 
 function Requested(props) {
   return (
@@ -33,10 +36,26 @@ function SidePanel(props) {
 class Modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {listener: this.keyDown.bind(this)};
+    this.state = {listener: this.keyDown.bind(this), verified: false};
   }
 
   componentDidMount() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaDiv', {
+        'callback': (token) => {
+            try {
+                this.setState({verified: true});
+                console.log(token);
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    });
+  
+
+    window.recaptchaVerifier.render().then(function(widgetId) {
+        window.recaptchaWidgetId = widgetId;
+        console.log(widgetId);
+    });
     window.addEventListener("keydown", this.state.listener);
   }
 
@@ -64,7 +83,7 @@ class Modal extends React.Component {
             <label>
               Email
               <br />
-              <input type="email" name="email" placeholder="your email" required />
+              <input type="email" name="user_email" placeholder="your email" required />
             </label>
             <label>
               Message To Team
@@ -79,24 +98,37 @@ class Modal extends React.Component {
             <label>
               Upload Files
               <Requested requested={this.props.requested} />
-              <input type="file" multiple />
+              <input id="requestedFiles" type="file" multiple />
             </label>
+            <div id="recaptchaDiv" class="g-recaptcha"></div>
             <div className="submit">
               <input
                 type="submit"
                 value="Submit"
                 onClick={(event) => {
                   event.preventDefault();
-                  const form_data = new FormData(document.getElementById("modal-form"));
-                  fetch("/apply", {
+                  if (!this.state.verified) {
+                      console.log("not verified");
+                      return;
+                  }
+                  let form_data = new FormData(document.getElementById("modal-form"));
+                  form_data.append("team_email", this.props.email);
+                  Array.from(document.getElementById("requestedFiles").files).forEach( (file, i) => {
+                    console.log(file);
+                    form_data.append("file" + i, file);
+                  });
+
+                  fetch("/contact", {
                     method: 'POST',
                     body: form_data
                   }).then(response => {
+                      console.log(response);
                     if (response.ok) {
                       this.props.exit();
                     }
                   });
-                }}
+                }
+              }
               />
             </div>
           </form>
@@ -119,9 +151,10 @@ class Project extends React.Component {
   renderModal() {
     if (this.state.in_modal) {
       return <Modal
-        team={this.state.name}
+        team={this.state.title}
         exit={() => this.setModal(false)}
         requested={this.state.requested}
+        email={this.state.email}
       />
     }
   }
@@ -147,19 +180,23 @@ class Project extends React.Component {
       return (
         <div className="Project">
           <Header />
-          <h1>{this.state.name}</h1>
-          <p className="project-loc">{this.state.position}</p>
+          <h1>{this.state.title}</h1>
+          <p className="project-loc">
+		    {this.state.pos_title} <br />
+			<small className="project-loc">({this.state.team_name})</small>
+          </p>
           <div className="project-left">
             <SidePanel looking={this.state.looking} requested={this.state.requested}
               contact={() => this.setModal(true)}
             />
           </div>
           <p><strong>Location:</strong> {this.state.location}</p>
-          <p><strong>Remote:</strong> {this.state.remote ? "yes" : "no"}</p>
+          <p><strong>Remote:</strong> {this.state.remote ? "Yes" : "No"}</p>
           <strong>Team/Project Description</strong>
-          <p>{this.state.project_desc}</p>
+          <p>{this.state.proj_desc}</p>
           <strong>Position Description</strong>
-          <p>{this.state.position_desc}</p>
+          <p>{this.state.pos_desc}</p>
+		  <img src={this.state.imageUrl} />
           {this.renderModal()}
         </div>
       )
@@ -168,15 +205,17 @@ class Project extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    fetch(`${process.env.REACT_APP_API_SERVER}/get_project?id=${id}`).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        this.setState(Object.assign({}, this.state, {ok: false}));
-      }
-    }).then(json => {
-      this.setState(Object.assign({}, this.state, {loaded: true}, json));
-    });
+	db.collection("projects").where("id","==",id).get()
+		.then( (querySnapshot) => {
+			querySnapshot.forEach( (doc) => {
+				 console.log(doc.data());
+				 this.setState(Object.assign({}, this.state, {loaded: true}, doc.data()));
+			});	
+		})
+		.catch( (error) => {
+			console.log(error);
+			this.setState(Object.assign({}, this.state, {ok: false}));
+		});
   }
 }
 
