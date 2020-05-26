@@ -58,8 +58,10 @@
 .Home .home-part2 .content {
   overflow: auto;
   color: var(--black);
-  padding-left: 10%;
-  padding-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 0;
+  text-align: justify;
 }
 
 @media (max-width: 1000px) {
