@@ -3,7 +3,7 @@
 }
 
 .project {
-  width: 100%;
+  width: fit-content;
   display: inline-grid;
   justify-items: center;
   text-align: center;
