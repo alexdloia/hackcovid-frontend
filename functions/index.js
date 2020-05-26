@@ -147,28 +147,21 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
             return res.status(422).json({ errors: errors.array() });
         }
 
-        if (["localhost", "hackcovid.dev"].includes(req.hostname)) {
-            let reqData = req.body;
-            let reqFiles = req.files;
-            
-            console.log("calling mailsender");
-                mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
-                    .then( (status) => {
-                        console.log("mailSender succeeded")
-                        res.status(status).send();
-                        return true;
-                    })
-                    .catch( (err) => {
-                        console.log("something went wrong in mailSender")
-                        res.status(500).json(err);
-                        throw new Error(err);
-                    });
-
-        } else {
-            console.log("not from an authorized hostname");
-            console.log(req.hostname);
-            res.status(401).send();
-        }
+        let reqData = req.body;
+        let reqFiles = req.files;
+        
+        console.log("calling mailsender");
+            mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
+                .then( (status) => {
+                    console.log("mailSender succeeded")
+                    res.status(status).send();
+                    return true;
+                })
+                .catch( (err) => {
+                    console.log("something went wrong in mailSender")
+                    res.status(500).json(err);
+                    throw new Error(err);
+                });
 });
 
 function finishProcessingPost(docId, reqData, res) {
@@ -208,40 +201,34 @@ processPostApp.post(['/post_position', '/'], filesUpload,
             return res.status(422).json({ errors: errors.array() });
         }
 
-        if(["localhost", "hackcovid.dev"].includes(req.hostname)) {
-            let reqData = req.body;
+        let reqData = req.body;
 
-            if (reqData.requested) {
-                reqData.requested = reqData.requested.split(", ");
-            } else {
-                res.status(400).send();
-                return;
-            }
-            
-            let docId = slugify(reqData.title) + "-" + Date.now().toString();
-
-            if (!req.files.length) {
-                reqData.imageUrl = defaultImageUrl;
-                finishProcessingPost(docId, reqData, res);
-            } else {
-                let image = req.files[0];
-                uploadFile(image)
-                    .then( (publicUrl) => {
-                        console.log("upload success");
-                        reqData.imageUrl = publicUrl;
-                        finishProcessingPost(docId, reqData, res);
-                        return true;
-                    })
-                    .catch( (error) => {
-                        console.log(error);
-                        res.status(500).json(error);
-                        throw new Error(error);
-                    });
-            }
+        if (reqData.requested) {
+            reqData.requested = reqData.requested.split(", ");
         } else {
-            console.log("not from an authorized hostname");
-            console.log(req.hostname);
-            res.status(401).send();
+            res.status(400).send();
+            return;
+        }
+        
+        let docId = slugify(reqData.title) + "-" + Date.now().toString();
+
+        if (!req.files.length) {
+            reqData.imageUrl = defaultImageUrl;
+            finishProcessingPost(docId, reqData, res);
+        } else {
+            let image = req.files[0];
+            uploadFile(image)
+                .then( (publicUrl) => {
+                    console.log("upload success");
+                    reqData.imageUrl = publicUrl;
+                    finishProcessingPost(docId, reqData, res);
+                    return true;
+                })
+                .catch( (error) => {
+                    console.log(error);
+                    res.status(500).json(error);
+                    throw new Error(error);
+                });
         }
 });
 		
