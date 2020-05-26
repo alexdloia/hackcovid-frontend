@@ -199,7 +199,6 @@ class Project extends React.Component {
           <p>{this.state.proj_desc}</p>
           <strong>Position Description</strong>
           <p>{this.state.pos_desc}</p>
-          <img src={this.state.imageUrl} />
           {this.renderModal()}
         </div>
       )
