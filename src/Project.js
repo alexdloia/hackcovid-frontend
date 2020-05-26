@@ -41,21 +41,21 @@ class Modal extends React.Component {
 
   componentDidMount() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaDiv', {
-        'callback': (token) => {
-            try {
-                this.setState({verified: true});
-                console.log(token);
-            } catch(err) {
-                console.log(err);
-            }
+      'callback': (token) => {
+        try {
+          this.setState({verified: true});
+          console.log(token);
+        } catch(err) {
+          console.log(err);
         }
+      }
     });
-  
 
     window.recaptchaVerifier.render().then(function(widgetId) {
-        window.recaptchaWidgetId = widgetId;
-        console.log(widgetId);
+      window.recaptchaWidgetId = widgetId;
+      console.log(widgetId);
     });
+
     window.addEventListener("keydown", this.state.listener);
   }
 
