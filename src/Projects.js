@@ -104,7 +104,10 @@ export default class Projects extends React.Component {
       .then(querySnapshot => {
         let json = []
         querySnapshot.forEach(doc => {
-          json.push({ key: doc.id, friendly: doc.data().friendly });
+          let docData = doc.data();
+          if (!docData.empty) {
+            json.push({ key: doc.id, friendly: docData.friendly });
+          }
         });
 
         this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));

@@ -172,6 +172,10 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
 
 function finishProcessingPost(docId, reqData, res) {
         db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
+        let categoryDoc = db.collection("categories").doc(reqData.category);
+        categoryDoc.get().then( (doc) => {
+            if(doc && doc.data().empty) categoryDoc.update({empty: false});
+        });
         res.redirect('/projects');
         remindToReviewNewProject(reqData.title);
 }
