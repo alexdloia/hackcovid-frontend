@@ -172,7 +172,7 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
 
 function finishProcessingPost(docId, reqData, res) {
         db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
-        res.redirect('/');
+        res.redirect('/projects');
         remindToReviewNewProject(reqData.title);
 }
 
