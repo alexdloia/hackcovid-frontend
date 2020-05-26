@@ -181,7 +181,7 @@ function finishProcessingPost(docId, reqData, res) {
             console.log(err);
             throw new Error(err);
         });
-        res.redirect('/projects');
+        res.redirect('/post');
         remindToReviewNewProject(reqData.title);
 }
 
