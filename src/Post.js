@@ -40,10 +40,11 @@ class Form extends React.Component {
       <label>
         Contact Email
         <br />
-        <input type="email" name="email" placeholder="contact email" required />
+        <input type="email" name="email" placeholder="Contact email" required />
       </label>
-      <TextInput label="Project Title" name="title" placeholder="project title" />
-      <TextInput label="Position Title" name="pos_title" placeholder="position title" />
+      <TextInput label="Project Title" name="title" placeholder="Name of your project" />
+      <TextInput label="Team Name" name="team_name" placeholder="Name of your team" />
+      <TextInput label="Position Title" name="pos_title" placeholder="Title of open role" />
       <label>
         Project Type
         <br />

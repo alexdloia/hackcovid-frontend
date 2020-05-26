@@ -121,7 +121,6 @@ function createTeamContactMessageFromReq(reqData, reqFiles) {
             };
         }) : []);
 
-    console.log(reqFiles);
     return {
         from: [ {
             name: "HackCOVID Support",
@@ -171,6 +170,11 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
         }
 });
 
+function finishProcessingPost(docId, reqData, res) {
+        db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
+        res.redirect('/');
+        remindToReviewNewProject(reqData.title);
+}
 
 processPostApp.post(['/post_position', '/'], filesUpload, 
     [
@@ -185,6 +189,7 @@ processPostApp.post(['/post_position', '/'], filesUpload,
         check("team_desc").trim().escape(),
         check("pos_desc").trim().escape(),
         check("remote").toBoolean(),
+        check("team_name").trim().escape()
     ], 
     (req, res) => {
         console.log("checking validation");
@@ -207,18 +212,14 @@ processPostApp.post(['/post_position', '/'], filesUpload,
 
             if (!req.files.length) {
                 reqData.imageUrl = defaultImageUrl;
-                db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
-                res.send('/projects');
-                remindToReviewNewProject(reqData.title);
+                finishProcessingPost(docId, reqData, res);
             } else {
                 let image = req.files[0];
                 uploadFile(image)
                     .then( (publicUrl) => {
                         console.log("upload success");
                         reqData.imageUrl = publicUrl;
-                        db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
-                        res.send('/projects');
-                        remindToReviewNewProject(reqData.title);
+                        finishProcessingPost(docId, reqData, res);
                         return true;
                     })
                     .catch( (error) => {
