@@ -20,15 +20,17 @@ function Requested(props) {
 function SidePanel(props) {
   return (
     <div className="project-right">
-      <strong>Looking For</strong>
-      <p>{props.looking}</p>
-      <strong>Requested Materials</strong>
-      <Requested requested={props.requested} />
-      <p className="project-contact">
-        <button className="project-contact" onClick={() => props.contact()} >
-          Contact Team
-        </button>
-      </p>
+      <div className="project-right-inner">
+        <strong>Looking For</strong>
+        <p>{props.looking}</p>
+        <strong>Requested Materials</strong>
+        <Requested requested={props.requested} />
+        <p className="project-contact">
+          <button className="project-contact" onClick={() => props.contact()} >
+            Contact Team
+          </button>
+        </p>
+      </div>
     </div>
   );
 }
