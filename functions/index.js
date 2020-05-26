@@ -166,6 +166,7 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
 
         } else {
             console.log("not from an authorized hostname");
+            console.log(req.hostname);
             res.status(401).send();
         }
 });
