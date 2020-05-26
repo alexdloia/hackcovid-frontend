@@ -175,6 +175,11 @@ function finishProcessingPost(docId, reqData, res) {
         let categoryDoc = db.collection("categories").doc(reqData.category);
         categoryDoc.get().then( (doc) => {
             if(doc && doc.data().empty) categoryDoc.update({empty: false});
+            return true;
+        })
+        .catch( (err) => {
+            console.log(err);
+            throw new Error(err);
         });
         res.redirect('/projects');
         remindToReviewNewProject(reqData.title);
