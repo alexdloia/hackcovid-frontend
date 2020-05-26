@@ -78,3 +78,14 @@
 .Project .modal p {
   text-align: center;
 }
+
+.Project .modal .modal-close {
+  margin-right: 1em;
+  margin-top: 1em;
+  float: right;
+}
+
+
+.Project .modal .modal-close:hover {
+  color: var(--contact-red);
+}
