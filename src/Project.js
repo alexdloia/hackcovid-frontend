@@ -211,7 +211,7 @@ class Project extends React.Component {
         querySnapshot.forEach(doc => {
           console.log(doc.data());
           this.setState(Object.assign({}, this.state, {loaded: true}, doc.data()));
-        });
+        })
       ))
       .catch(error => {
         console.log(error);
