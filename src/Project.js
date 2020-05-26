@@ -182,8 +182,8 @@ class Project extends React.Component {
           <Header />
           <h1>{this.state.title}</h1>
           <p className="project-loc">
-		    {this.state.pos_title} <br />
-			<small className="project-loc">({this.state.team_name})</small>
+            {this.state.pos_title} <br />
+            <small className="project-loc">({this.state.team_name})</small>
           </p>
           <div className="project-left">
             <SidePanel looking={this.state.looking} requested={this.state.requested}
@@ -196,7 +196,7 @@ class Project extends React.Component {
           <p>{this.state.proj_desc}</p>
           <strong>Position Description</strong>
           <p>{this.state.pos_desc}</p>
-		  <img src={this.state.imageUrl} />
+          <img src={this.state.imageUrl} />
           {this.renderModal()}
         </div>
       )
@@ -205,17 +205,17 @@ class Project extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-	db.collection("projects").where("id","==",id).get()
-		.then( (querySnapshot) => {
-			querySnapshot.forEach( (doc) => {
-				 console.log(doc.data());
-				 this.setState(Object.assign({}, this.state, {loaded: true}, doc.data()));
-			});	
-		})
-		.catch( (error) => {
-			console.log(error);
-			this.setState(Object.assign({}, this.state, {ok: false}));
-		});
+    db.collection("projects").where("id","==",id).get()
+      .then(querySnapshot => (
+        querySnapshot.forEach(doc => {
+          console.log(doc.data());
+          this.setState(Object.assign({}, this.state, {loaded: true}, doc.data()));
+        });
+      ))
+      .catch(error => {
+        console.log(error);
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      });
   }
 }
 

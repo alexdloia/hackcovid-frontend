@@ -70,25 +70,25 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
-	console.log(this.props.search_key);
-	let approved_matched_projects = db.collection("projects")
-		.where("category", "==", this.props.search_key)
-		.where("approved", "==", true);
+    console.log(this.props.search_key);
+    let approved_matched_projects = db.collection("projects")
+      .where("category", "==", this.props.search_key)
+      .where("approved", "==", true);
 
-	approved_matched_projects.get()
-		.then( (querySnapshot) => {	
-			let data = [];
-			querySnapshot.forEach( (doc) => {
-				console.log(doc.data());
-				data.push(doc.data());
-			});	
+    approved_matched_projects.get()
+      .then(querySnapshot => {
+        let data = [];
+        querySnapshot.forEach( (doc) => {
+          console.log(doc.data());
+          data.push(doc.data());
+        });
 
-			this.setState(Object.assign({}, this.state, {loaded: true}, {data: data}));
-		})
-		.catch( (error) => {
-			console.log(error);
-			this.setState(Object.assign({}, this.state, {ok: false}));
-		});
+        this.setState(Object.assign({}, this.state, {loaded: true}, {data: data}));
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      });
   }
 }
 
@@ -99,20 +99,20 @@ export default class Projects extends React.Component {
   }
 
   componentDidMount() {
-	let categories = db.collection("categories");
-	categories.get()
-		.then( (querySnapshot) => {
-			let json = []
-			querySnapshot.forEach( (doc) => {
-				json.push({ key: doc.id, friendly: doc.data().friendly });
-			});
+    let categories = db.collection("categories");
+    categories.get()
+      .then(querySnapshot => {
+        let json = []
+        querySnapshot.forEach(doc => {
+          json.push({ key: doc.id, friendly: doc.data().friendly });
+        });
 
-			this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
-		})
-		.catch( (error) => {
-			console.log(error);
-			this.setState(Object.assign({}, this.state, {ok: false}));
-		});
+        this.setState(Object.assign({}, this.state, {loaded: true}, {categories: json}));
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState(Object.assign({}, this.state, {ok: false}));
+      });
   }
 
   render() {
