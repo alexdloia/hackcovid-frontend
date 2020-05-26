@@ -17,7 +17,6 @@ import {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts: [{"name": "Team1", "desc": "We are a team", "id": 1}, {"name": "Team2", "desc": "We are also a team", "id": 3}]};
   }
 
   render() {
