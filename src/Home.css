@@ -7,17 +7,15 @@
 
 .home-part2 {
   background-color: var(--default-bg-light);
-  color: var(--default-active);
+  color: var(--black);
+  font-family: 'M PLUS 1p', sans-serif;
 }
 
-.home-part2 h4 {
-  color: var(--default-emphasis);
-}
-
-.Home h4 {
+.Home .home-part2 h5 {
   font-weight: 800;
   letter-spacing: .25em;
   text-transform: uppercase;
+  color: var(--default-emphasis)
 }
 
 .headline h1 {
@@ -35,31 +33,33 @@
   color: var(--default-emphasis);
 }
 
+.home-part2 h1, .home-part2 h5 {
+  text-align: center;
+}
+
+.home-part2 h1 {
+  margin-top: 0;
+}
+
+.home-part2 h5 {
+  margin-bottom: 0;
+}
+
+.Home .content {
+  color: var(--default-active);
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .Home .home-part1 .content {
   display: flex;
 }
 
 .Home .home-part2 .content {
   overflow: auto;
-}
-
-.home-part2 h2 {
-  font-size: 3em;
-  margin-top: 0;
-  margin-bottom: .5em;
-}
-
-.Home .content {
-  color: var(--default-active);
+  color: var(--black);
   padding-left: 10%;
-}
-
-.home-part2 .content {
-  padding-right: 40%;
-}
-
-.home-part2 .content p {
-  color: var(--default-inactive);
+  padding-right: 10%;
 }
 
 @media (max-width: 1000px) {
@@ -89,5 +89,5 @@
 }
 
 .home-part2 .logo span:last-child {
-  color: var(--default-active);
+  color: var(--default-black);
 }

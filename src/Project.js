@@ -192,14 +192,14 @@ class Project extends React.Component {
             <SidePanel looking={this.state.looking} requested={this.state.requested}
               contact={() => this.setModal(true)}
             />
+            <p><strong>Location:</strong> {this.state.location}</p>
+            <p><strong>Remote:</strong> {this.state.remote ? "Yes" : "No"}</p>
+            <strong>Team/Project Description</strong>
+            <p>{this.state.proj_desc}</p>
+            <strong>Position Description</strong>
+            <p>{this.state.pos_desc}</p>
+            {this.renderModal()}
           </div>
-          <p><strong>Location:</strong> {this.state.location}</p>
-          <p><strong>Remote:</strong> {this.state.remote ? "Yes" : "No"}</p>
-          <strong>Team/Project Description</strong>
-          <p>{this.state.proj_desc}</p>
-          <strong>Position Description</strong>
-          <p>{this.state.pos_desc}</p>
-          {this.renderModal()}
         </div>
       )
     }

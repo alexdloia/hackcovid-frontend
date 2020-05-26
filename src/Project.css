@@ -6,12 +6,17 @@
   text-align: center;
 }
 
+.project-left {
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: justify;
+}
+
 .project-right {
   background-color: var(--project-side-bg);
   list-style-type: "-";
   float: right;
   width: 20%;
-  margin-right: 1em;
   margin-left: 1em;
   border-radius: 1em;
   padding: 1em;
@@ -27,7 +32,7 @@
   border: none;
   padding: .5em;
   border-radius: .5em;
-  font-size: 1.5em;
+  font-size: 1.25em;
 }
 
 .project-contact button a {
