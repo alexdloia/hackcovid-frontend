@@ -30,7 +30,8 @@
 }
 
 .Post input:placeholder-shown, .Post textarea:placeholder-shown, .Post select:placeholder-shown {
-  background-color: white;
+  background-color: #F6F6F6;
+  border: 1px solid #DDDDDD;
 }
 
 .Post textarea {
