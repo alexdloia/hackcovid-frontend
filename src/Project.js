@@ -75,8 +75,8 @@ class Modal extends React.Component {
         onClick={() => this.props.exit()}
         onScroll={event => event.stopPropagation()}
       >
-        <div className="modal-close" onClick={() => this.props.exit()}>✕</div>
         <div className="modal-content Post" onClick={event => event.stopPropagation()}>
+          <div className="modal-close" onClick={() => this.props.exit()}>✕</div>
           <form method="post" id="modal-form">
             <h1>Get in touch with {this.props.team}</h1>
             <p>Please fill out the form below, and this team will be in touch!</p>
