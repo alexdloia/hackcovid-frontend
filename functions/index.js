@@ -37,20 +37,16 @@ function mailSender(message) {
 	console.log("starting mailSender");
     let verified = transporter.verify();
     let send = verified.then( ( success ) => { 
-        transporter.sendMail(message);
+        console.log("calling nodemailer");
+        transporter.sendMail(message)
+            .catch( (err) => {
+                console.log(err)
+                throw new Error(err);
+            });
         return true;
     });
 
-    return Promise.all([verified, send])
-        .then( (vals) => {
-            console.log("Email sent successfully!");
-            return 200;
-        })
-        .catch( (err) => {
-            console.log("Something went wrong in sending");
-            console.log(err);
-            throw new Error(err);
-        });
+    return Promise.all([verified, send]);
 }
 
 
@@ -76,7 +72,7 @@ const uploadFile = (file) => new Promise((resolve, reject) => {
   	.end(buffer);
 });
 
-remindToReviewNewProject = (projectTitle) => {	
+function remindToReviewNewProject(projectTitle) {	
 	let message = {
 		from: [ {
 			name: "HackCOVID Support",
@@ -102,7 +98,7 @@ remindToReviewNewProject = (projectTitle) => {
 			console.log("something went wrong in mailSender")
             throw new Error(err);
 		});
-};
+}
 
 function createTeamContactMessageFromReq(reqData, reqFiles) {
     let attachment_message = reqFiles ? "Files were also attached to this message." : "";
@@ -154,7 +150,7 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
             mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
                 .then( (status) => {
                     console.log("mailSender succeeded")
-                    res.status(status).send();
+                    res.status(200).send();
                     return true;
                 })
                 .catch( (err) => {
@@ -168,7 +164,17 @@ function finishProcessingPost(docId, reqData, res) {
         db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
         let categoryDoc = db.collection("categories").doc(reqData.category);
         categoryDoc.get().then( (doc) => {
-            if(doc && doc.data().empty) categoryDoc.update({empty: false});
+            console.log("checking if category is empty");
+            try {
+                let docData = doc.data();
+                if(docData && docData.hasOwnProperty("empty") 
+                    && docData.empty) {
+                    categoryDoc.update({empty: false});
+                }
+            } catch(err) {
+                console.log(err);
+                throw new Error(err);
+            }
             return true;
         })
         .catch( (err) => {
