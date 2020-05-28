@@ -42,7 +42,7 @@
 }
 
 .header-links a {
-  margin-left: 1em;
+  margin-left: 2em;
   text-decoration: none;
 }
 
@@ -66,6 +66,11 @@
     margin: 0em;
     font-size: 1.5em;
   }
+
+  .header-links a {
+    margin-left: 1em;
+    text-decoration: none;
+  }
 }
 
 .header .header-logo {
@@ -74,6 +79,7 @@
   font-size: 1.5em;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin: .1em;
+  margin-left: 1em;
 }
 
 .header .header-links a {
