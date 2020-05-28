@@ -5,6 +5,28 @@
   display: grid;
 }
 
+.home-part1 .checkout {
+  color: var(--default-active);
+}
+
+.home-part1 .checkout span {
+  border: 1px solid var(--default-active);
+  border-radius: 100%;
+  font-size: 2em;
+  margin-left: 1em;
+  width: 1em;
+  height: 1em;
+  padding: .2em;
+  display: inline-flex;
+  align-items: center;
+  text-align:center;
+}
+
+.home-part1 .checkout a {
+  text-decoration: none;
+  color: var(--default-active);
+}
+
 .home-part2 {
   background-color: var(--default-bg-light);
   color: var(--black);
@@ -53,6 +75,7 @@
 
 .Home .home-part1 .content {
   display: flex;
+  flex-direction: column;
 }
 
 .Home .home-part2 .content {

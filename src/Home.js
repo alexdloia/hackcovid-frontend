@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header.js';
 import './Home.css';
+import {Link} from "react-router-dom";
 
 export default function Home(props) {
   return (
@@ -14,6 +15,14 @@ export default function Home(props) {
               <br />
               <span>together</span>
             </h1>
+          </div>
+          <div className="checkout">
+            <p>
+              Check out some of the projects our community is working on!
+              <span>
+                <Link to="/projects">→</Link>
+              </span>
+            </p>
           </div>
         </div>
       </div>
