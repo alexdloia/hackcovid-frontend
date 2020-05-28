@@ -118,7 +118,7 @@ export default function Post(props) {
       <Header selected="Post" />
       <div className="content">
         <h1>Join our growing community of teams</h1>
-        <p>Please enter your team and project information below. We will briefly review submissions, and your project will be posted if your team is approved! Scroll to the bottom of this page for a sample job posting.</p>
+        <p>Please enter your team and project information below. We will briefly review submissions, and your project will be posted if your team is approved!</p>
         <Form />
       </div>
     </div>
