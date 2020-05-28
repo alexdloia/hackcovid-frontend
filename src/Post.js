@@ -88,8 +88,8 @@ class Form extends React.Component {
               <br />
               <textarea
                 name="pos_desc"
-                placeholder="Describe what the position involves (300 words max)"
-                onChange={limitWords(300)}
+                placeholder="Describe what the position involves (400 words max)"
+                onChange={limitWords(400)}
                 required
               />
             </label>
