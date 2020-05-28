@@ -62,6 +62,8 @@
   margin-right: 10%;
   padding: 0;
   text-align: justify;
+  min-height: 100vh;
+  font-size: large;
 }
 
 @media (max-width: 1000px) {
