@@ -53,17 +53,18 @@
 }
 
 .Post input[type=submit] {
+  width: auto;
   border: none;
-  border-radius: 1em;
-  font-size: 2em;
+  border-radius: .5em;
+  font-size: 1.5em;
   background-color: var(--contact-red);
-  padding: .5em 1em .5em 1em;
+  padding: .5em 1em;
   color: var(--default-active);
   margin-bottom: 1em;
   width: auto;
 }
 
-.Post input[type=submit]:active {
+.Post input[type=submit]:hover {
   background-color: var(--contact-red-hover);
 }
 
