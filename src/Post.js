@@ -60,7 +60,7 @@ class Form extends React.Component {
               </select>
             </label>
             <TextInput optional={true} label="Project Type" name="type_details" placeholder="If other" required />
-            <TextInput label="What You're Looking For" name="looking" placeholder="Qualifications" required />
+            <TextInput label="What You're Looking For" name="looking" placeholder="Qualifications Ex: Full stack web developer proficient in React and Django" required />
             <label>
               Requested Materials
               <br />
@@ -71,7 +71,7 @@ class Form extends React.Component {
             <label>
               Project Preview
               <br />
-              <p>20 word project summary</p>
+              <p>Please summarize your project in 20 words or less to help users when they are browsing projects</p>
               <input type="text"
                 name="summary"
                 placeholder=" "
@@ -84,8 +84,13 @@ class Form extends React.Component {
             <label>
               Project/Team Description
               <br />
-              <p>Describe your team and the project you’re working on</p>
-              <textarea required name="team_desc" placeholder=" " />
+              <p>Describe your team and the project you’re working on (400 word smax)</p>
+              <textarea
+                required
+                onChange={limitWords(400)}
+                name="team_desc"
+                placeholder=" "
+              />
             </label>
             <label>
               Position Description
