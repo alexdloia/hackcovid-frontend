@@ -23,6 +23,8 @@
 .Post input, .Post select, .Post textarea {
   font-size: 1.2em;
   padding: .2em;
+  margin-top: .5em;
+  width: 100%;
 }
 
 .Post .invalid, .Post input:invalid, .Post select:invalid, .Post textarea:invalid {
@@ -36,6 +38,8 @@
 
 .Post textarea {
   width: 100%;
+  font-family: 'Roboto', sans-serif;
+  resize: vertical;
 }
 
 .Post input[type=checkbox] {
@@ -55,8 +59,33 @@
   background-color: var(--contact-red);
   padding: .5em 1em .5em 1em;
   color: var(--default-active);
+  margin-bottom: 1em;
+  width: auto;
 }
 
 .Post input[type=submit]:active {
   background-color: var(--contact-red-hover);
+}
+
+.Post .post-twocol {
+  display: flex;
+  flex-direction: row;
+}
+
+.Post .post-left {
+  flex-grow: 1;
+  margin-right: 2%;
+}
+
+.Post .post-right {
+  flex-grow: 1;
+}
+
+@media (max-width: 1000px) {
+  .Post .post-twocol {
+    flex-direction: column;
+  }
+  .Post .post-left {
+    margin-right: 0%;
+  }
 }
