@@ -40,7 +40,8 @@ class Form extends React.Component {
             <label>
               Contact Email
               <br />
-              <input type="email" name="email" placeholder="Contact email" required />
+              <p>Contact email</p>
+              <input type="email" name="email" required placeholder=" " />
             </label>
             <TextInput label="Project Title" name="title" placeholder="Name of your project" />
             <TextInput label="Team Name" name="team_name" placeholder="Name of your team" />
@@ -58,20 +59,22 @@ class Form extends React.Component {
                 </optgroup>
               </select>
             </label>
-            <TextInput optional={true} label="Project Type" name="type_details" placeholder="if other" required />
-            <TextInput label="What You're Looking For" name="looking" placeholder="qualifications" required />
+            <TextInput optional={true} label="Project Type" name="type_details" placeholder="If other" required />
+            <TextInput label="What You're Looking For" name="looking" placeholder="Qualifications" required />
             <label>
               Requested Materials
               <br />
-              <textarea name="requested" placeholder="Note: separate entries with commas Ex: Resume, Certifications, Portfolio" required />
+              <p>Note: separate entries with commas Ex: Resume, Certifications, Portfolio</p>
+              <textarea name="requested" required placeholder=" " />
             </label>
-            <TextInput label="Location" name="location" placeholder="City, State/Province, country" />
+            <TextInput label="Location" name="location" placeholder="City, State/Province, Country" />
             <label>
               Project Preview
               <br />
+              <p>20 word project summary</p>
               <input type="text"
                 name="summary"
-                placeholder="20 word project summary"
+                placeholder=" "
                 onChange={limitWords(20)}
                 required
               />
@@ -81,15 +84,17 @@ class Form extends React.Component {
             <label>
               Project/Team Description
               <br />
-              <textarea required name="team_desc" placeholder="Describe your team and the project you’re working on" />
+              <p>Describe your team and the project you’re working on</p>
+              <textarea required name="team_desc" placeholder=" " />
             </label>
             <label>
               Position Description
               <br />
+              <p>Describe what the position involves (400 words max)</p>
               <textarea
                 name="pos_desc"
-                placeholder="Describe what the position involves (400 words max)"
                 onChange={limitWords(400)}
+                placeholder=" "
                 required
               />
             </label>

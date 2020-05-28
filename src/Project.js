@@ -82,26 +82,28 @@ class Modal extends React.Component {
           <form method="post" id="modal-form">
             <h1>Get in touch with {this.props.team}</h1>
             <p>Please fill out the form below, and this team will be in touch!</p>
-            <TextInput name="name" placeholder="your name" label="Your Name" />
+            <TextInput name="name" placeholder="Your name" label="Your Name" />
             <label>
               Email
               <br />
-              <input type="email" name="user_email" placeholder="your email" required />
+              <p>Your email</p>
+              <input type="email" name="user_email" placeholder=" " required />
             </label>
             <label>
               Message To Team
               <br />
+              <p>Describe your interests, qualifications, and any other information you’d like the team to know (400 word max)</p>
               <textarea
                 name="message"
-                placeholder="Describe your interests, qualifications, and any other information you’d like the team to know (400 word max)"
                 onChange={limitWords(400)}
+                placeholder=" "
                 required
               />
             </label>
             <label>
               Upload Files
               <Requested requested={this.props.requested} />
-              <input id="requestedFiles" type="file" multiple />
+              <input id="requestedFiles" type="file" multiple placeholder=" " />
             </label>
             <div id="recaptchaDiv" class="g-recaptcha"></div>
             <div className="submit">

@@ -6,7 +6,8 @@ export function TextInput(props) {
       <label>
         {props.label}
         <br />
-        <input type="text" name={props.name} placeholder={props.placeholder} />
+        <p>{props.placeholder}</p>
+        <input type="text" name={props.name} placeholder=" " />
       </label>
     );
   } else {
@@ -14,7 +15,8 @@ export function TextInput(props) {
       <label>
         {props.label}
         <br />
-        <input required type="text" name={props.name} placeholder={props.placeholder} />
+        <p>{props.placeholder}</p>
+        <input required type="text" name={props.name} placeholder=" " />
       </label>
     );
   }

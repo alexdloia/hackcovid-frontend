@@ -6,6 +6,12 @@
   color: var(--form-blue);
 }
 
+.Post label p {
+  margin-top: .5em;
+  color: var(--black);
+  text-transform: none;
+}
+
 .Post .content {
   padding-left: 10%;
   padding-right: 10%;
@@ -23,7 +29,6 @@
 .Post input, .Post select, .Post textarea {
   font-size: 1.2em;
   padding: .2em;
-  margin-top: .5em;
   width: 100%;
 }
 
