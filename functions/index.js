@@ -37,20 +37,16 @@ function mailSender(message) {
 	console.log("starting mailSender");
     let verified = transporter.verify();
     let send = verified.then( ( success ) => { 
-        transporter.sendMail(message);
+        console.log("calling nodemailer");
+        transporter.sendMail(message)
+            .catch( (err) => {
+                console.log(err)
+                throw new Error(err);
+            });
         return true;
     });
 
-    return Promise.all([verified, send])
-        .then( (vals) => {
-            console.log("Email sent successfully!");
-            return 200;
-        })
-        .catch( (err) => {
-            console.log("Something went wrong in sending");
-            console.log(err);
-            throw new Error(err);
-        });
+    return Promise.all([verified, send]);
 }
 
 
@@ -76,7 +72,7 @@ const uploadFile = (file) => new Promise((resolve, reject) => {
   	.end(buffer);
 });
 
-remindToReviewNewProject = (projectTitle) => {	
+function remindToReviewNewProject(projectTitle) {	
 	let message = {
 		from: [ {
 			name: "HackCOVID Support",
@@ -102,7 +98,7 @@ remindToReviewNewProject = (projectTitle) => {
 			console.log("something went wrong in mailSender")
             throw new Error(err);
 		});
-};
+}
 
 function createTeamContactMessageFromReq(reqData, reqFiles) {
     let attachment_message = reqFiles ? "Files were also attached to this message." : "";
@@ -147,34 +143,38 @@ contactTeamApp.post(['/contact', '/'], filesUpload, [
             return res.status(422).json({ errors: errors.array() });
         }
 
-        if (["localhost", "hackcovid.dev"].includes(req.hostname)) {
-            let reqData = req.body;
-            let reqFiles = req.files;
-            
-            console.log("calling mailsender");
-                mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
-                    .then( (status) => {
-                        console.log("mailSender succeeded")
-                        res.status(status).send();
-                        return true;
-                    })
-                    .catch( (err) => {
-                        console.log("something went wrong in mailSender")
-                        res.status(500).json(err);
-                        throw new Error(err);
-                    });
-
-        } else {
-            console.log("not from an authorized hostname");
-            res.status(401).send();
-        }
+        let reqData = req.body;
+        let reqFiles = req.files;
+        
+        console.log("calling mailsender");
+            mailSender(createTeamContactMessageFromReq(reqData, reqFiles))
+                .then( (status) => {
+                    console.log("mailSender succeeded")
+                    res.status(200).send();
+                    return true;
+                })
+                .catch( (err) => {
+                    console.log("something went wrong in mailSender")
+                    res.status(500).json(err);
+                    throw new Error(err);
+                });
 });
 
 function finishProcessingPost(docId, reqData, res) {
         db.collection("projects").doc(docId).set(Object.assign({}, reqData, {id: docId}, {approved: false}));
         let categoryDoc = db.collection("categories").doc(reqData.category);
         categoryDoc.get().then( (doc) => {
-            if(doc && doc.data().empty) categoryDoc.update({empty: false});
+            console.log("checking if category is empty");
+            try {
+                let docData = doc.data();
+                if(docData && docData.hasOwnProperty("empty") 
+                    && docData.empty) {
+                    categoryDoc.update({empty: false});
+                }
+            } catch(err) {
+                console.log(err);
+                throw new Error(err);
+            }
             return true;
         })
         .catch( (err) => {
@@ -207,39 +207,34 @@ processPostApp.post(['/post_position', '/'], filesUpload,
             return res.status(422).json({ errors: errors.array() });
         }
 
-        if(["localhost", "hackcovid.dev"].includes(req.hostname)) {
-            let reqData = req.body;
+        let reqData = req.body;
 
-            if (reqData.requested) {
-                reqData.requested = reqData.requested.split(", ");
-            } else {
-                res.status(400).send();
-                return;
-            }
-            
-            let docId = slugify(reqData.title) + "-" + Date.now().toString();
-
-            if (!req.files.length) {
-                reqData.imageUrl = defaultImageUrl;
-                finishProcessingPost(docId, reqData, res);
-            } else {
-                let image = req.files[0];
-                uploadFile(image)
-                    .then( (publicUrl) => {
-                        console.log("upload success");
-                        reqData.imageUrl = publicUrl;
-                        finishProcessingPost(docId, reqData, res);
-                        return true;
-                    })
-                    .catch( (error) => {
-                        console.log(error);
-                        res.status(500).json(error);
-                        throw new Error(error);
-                    });
-            }
+        if (reqData.requested) {
+            reqData.requested = reqData.requested.split(", ");
         } else {
-            console.log("not from an authorized hostname");
-            res.status(401).send();
+            res.status(400).send();
+            return;
+        }
+        
+        let docId = slugify(reqData.title) + "-" + Date.now().toString();
+
+        if (!req.files.length) {
+            reqData.imageUrl = defaultImageUrl;
+            finishProcessingPost(docId, reqData, res);
+        } else {
+            let image = req.files[0];
+            uploadFile(image)
+                .then( (publicUrl) => {
+                    console.log("upload success");
+                    reqData.imageUrl = publicUrl;
+                    finishProcessingPost(docId, reqData, res);
+                    return true;
+                })
+                .catch( (error) => {
+                    console.log(error);
+                    res.status(500).json(error);
+                    throw new Error(error);
+                });
         }
 });
 		
