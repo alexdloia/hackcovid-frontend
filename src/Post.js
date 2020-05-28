@@ -84,7 +84,7 @@ class Form extends React.Component {
             <label>
               Project/Team Description
               <br />
-              <p>Describe your team and the project you’re working on (400 word smax)</p>
+              <p>Describe your team and the project you’re working on (400 words max)</p>
               <textarea
                 required
                 onChange={limitWords(400)}
