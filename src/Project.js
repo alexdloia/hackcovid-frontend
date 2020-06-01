@@ -197,7 +197,7 @@ class Project extends React.Component {
             <p><strong>Location:</strong> {this.state.location}</p>
             <p><strong>Remote:</strong> {this.state.remote ? "Yes" : "No"}</p>
             <strong>Team/Project Description</strong>
-            <p>{this.state.proj_desc}</p>
+            <p>{this.state.team_desc}</p>
             <strong>Position Description</strong>
             <p>{this.state.pos_desc}</p>
             {this.renderModal()}

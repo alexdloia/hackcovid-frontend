@@ -138,8 +138,8 @@ function createTeamContactMessageFromReq(reqData, reqFiles) {
 contactTeamApp.post(['/contact', '/'], filesUpload, [
     check('user_email').not().isEmpty().isEmail().normalizeEmail(),
     check('team_email').not().isEmpty().isEmail().normalizeEmail(),
-    check('name').not().isEmpty().trim().escape(),
-    check('message').not().isEmpty().trim().escape()
+    check('name').not().isEmpty().trim(),
+    check('message').not().isEmpty().trim()
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -197,17 +197,17 @@ async function finishProcessingPost(docId, reqData) {
 processPostApp.post(['/post_position', '/'], filesUpload,
     [
         check("email").isEmail().normalizeEmail(),
-        check("title").trim().escape(),
-        check("pos_title").trim().escape(),
-        check("type_details").trim().escape(),
-        check("looking").trim().escape(),
-        check("requested").trim().escape(),
-        check("location").trim().escape(),
-        check("summary").isLength({ max: 200 }).trim().escape(),
-        check("team_desc").trim().escape(),
-        check("pos_desc").trim().escape(),
+        check("title").trim(),
+        check("pos_title").trim(),
+        check("type_details").trim(),
+        check("looking").trim(),
+        check("requested").trim(),
+        check("location").trim(),
+        check("summary").isLength({ max: 200 }).trim(),
+        check("team_desc").trim(),
+        check("pos_desc").trim(),
         check("remote").toBoolean(),
-        check("team_name").trim().escape()
+        check("team_name").trim()
     ],
     async (req, res) => {
         console.log("checking validation");
