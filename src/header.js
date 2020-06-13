@@ -40,7 +40,7 @@ export default class Header extends React.Component {
     return (
       <div id="header-container">
         <div className={this.state.fixed ? "header fixed" : home ? "home-header" : "header"} id="header">
-          <span className="header-logo"><span>hack</span><span>COVID</span></span>
+          <span className="header-logo"><Link to="/"><span>hack</span><span>COVID</span></Link></span>
           <nav className="header-links">
             <Link to="/" className={home ? "selected" : ""}>Home</Link>
             <Link to="/projects" className={this.props.selected === "Projects" ? "selected" : ""}>Projects</Link>

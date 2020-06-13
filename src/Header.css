@@ -82,6 +82,10 @@
   margin-left: 1em;
 }
 
+.header-logo a {
+  text-decoration: none;
+}
+
 .header .header-links a {
   margin-top: 1em;
   margin-bottom: 1em;

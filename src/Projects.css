@@ -90,3 +90,19 @@
     border-radius: 9vw;
   }
 }
+
+.Projects .project-row-title {
+  margin-left: 2em;
+}
+
+@media (max-width: 1000px) {
+  .Projects .project-row-title {
+    margin-left: 1em;
+  }
+}
+
+@media (max-width: 750px) {
+  .Projects .project-row-title {
+    margin-left: 0em;
+  }
+}
