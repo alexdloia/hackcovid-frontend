@@ -33,6 +33,10 @@
   border-radius: 2vw;
 }
 
+.project {
+  max-width: 20vw;
+}
+
 .project-img p {
   overflow-y: scroll;
   display: none;
@@ -70,6 +74,7 @@
 @media (max-width: 1000px) {
   .project {
     margin-left: 2vw;
+    max-width: 30vw;
   }
 
   .project-img, .project-img img, .project-img p {
@@ -82,6 +87,7 @@
 @media (max-width: 500px) {
   .project {
     margin-left: 5vw;
+    max-width: 90vw;
   }
 
   .project-img, .project-img img, .project-img p {
