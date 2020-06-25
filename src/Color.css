@@ -10,4 +10,7 @@
   --form-blue: #05488C;
   --form-invalid: #FFE0E0;
   --black: #333333;
+  --modal-pending: #F3EB89;
+  --modal-ok: #98DC98;
+  --modal-error: #DC9898;
 }

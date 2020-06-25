@@ -35,10 +35,25 @@ function SidePanel(props) {
   );
 }
 
+function ModalNotification(props) {
+  return (
+    <div className={"notification-holder"}>
+      <div className={"notification " + props.state}>
+        <span>{props.message}</span>
+        <span onClick={() => props.clearNotification()}>✕</span>
+      </div>
+    </div>
+  )
+}
+
 class Modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {listener: this.keyDown.bind(this), verified: false};
+    this.state = {
+      listener: this.keyDown.bind(this),
+      verified: false,
+      notification: {active: false, message: "", state: ""},
+    }
   }
 
   componentDidMount() {
@@ -71,6 +86,26 @@ class Modal extends React.Component {
     }
   }
 
+  setNotification(state) {
+    let notification;
+    switch (state) {
+      case "pending":
+        notification = {active: true, message: "Submitting response...", state: "pending"};
+        break;
+      case "ok":
+        notification = {active: true, message: "Response submitted.", state: "ok"};
+        break;
+      case "error":
+        notification = {active: true, message: "An error occurred.", state: "error"};
+        break;
+      case "none":
+      default:
+        notification = {active: false, message: "", state: ""};
+        break;
+    }
+    this.setState(Object.assign({}, this.state, {notification: notification}));
+  }
+
   render() {
     return (
       <div className="modal"
@@ -79,6 +114,16 @@ class Modal extends React.Component {
       >
         <div className="modal-content Post" onClick={event => event.stopPropagation()}>
           <div className="modal-close" onClick={() => this.props.exit()}>✕</div>
+          {
+            this.state.notification.active && 
+            <ModalNotification
+              message = {this.state.notification.message}
+              state = {this.state.notification.state}
+              clearNotification = {() => (
+                this.setNotification("none")
+              )}
+            />
+          }
           <form method="post" id="modal-form">
             <h1>Get in touch with {this.props.team}</h1>
             <p>Please fill out the form below, and this team will be in touch!</p>
@@ -123,14 +168,19 @@ class Modal extends React.Component {
                     form_data.append("file" + i, file);
                   });
 
+                  this.setNotification("pending");
                   fetch("/contact", {
                     method: 'POST',
                     body: form_data
                   }).then(response => {
-                      console.log(response);
+                    console.log(response);
                     if (response.ok) {
-                      this.props.exit();
+                      this.setNotification("ok");
+                    } else {
+                      this.setNotification("error");
                     }
+                  }).catch(error => {
+                    this.setNotification("error");
                   });
                 }
               }
